@@ -25,7 +25,7 @@ const CreateLink = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        const fullShortenedUrl = `https://Shortcraze.vercel.app/${data.shortenedUrl}`;
+        const fullShortenedUrl = `https://shortcraze-3377.vercel.app/${data.shortenedUrl}`;
         setShortenedUrl(data.shortenedUrl);
         setFullUrl(fullShortenedUrl);
       } else {
