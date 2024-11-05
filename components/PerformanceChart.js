@@ -39,7 +39,7 @@ const PerformanceChart = ({ selectedRange }) => {
       data: {
         labels: chartData.labels,
         datasets: [{
-          label: 'Total Links Created',
+          label: 'Total Links Created by Users',
           data: chartData.values,
           backgroundColor: 'pink',
         }]
