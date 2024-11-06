@@ -1,4 +1,4 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // const LinkHistory = () => {
 //   const [links, setLinks] = useState([]);
@@ -44,4 +44,13 @@
 //   );
 // };
 
-// export default LinkHistory;
+const Placeholder = () => {
+  return (
+    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold text-white mb-4">Link History Page - Coming Soon</h2>
+      <p className="text-white">The link history feature is currently under construction. Please check back later.</p>
+    </div>
+  );
+};
+
+export default Placeholder;
