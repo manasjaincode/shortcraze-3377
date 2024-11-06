@@ -25,7 +25,7 @@ const CreateLink = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        const fullShortenedUrl = `http://localhost:3000/${data.shortenedUrl}`;
+        const fullShortenedUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${data.shortenedUrl}`;
         setShortenedUrl(data.shortenedUrl);
         setFullUrl(fullShortenedUrl);
       } else {
