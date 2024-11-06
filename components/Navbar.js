@@ -76,10 +76,10 @@ const Navbar = ({ onColorChange }) => {
             <HomeIcon className="w-5 h-5 mr-2" />
             Dashboard
           </Link>
-          <Link href="/link-history" className="flex items-center text-slate-50 hover:bg-gray-500 p-2 rounded">
+          {/* <Link href="/link-history" className="flex items-center text-slate-50 hover:bg-gray-500 p-2 rounded">
             <LinkIcon className="w-5 h-5 mr-2" />
             Links
-          </Link>
+          </Link> */}
           <div className="relative">
             <button
               className="flex items-center text-slate-50 hover:bg-gray-500 p-2 rounded"
@@ -132,12 +132,12 @@ const Navbar = ({ onColorChange }) => {
                 Dashboard
               </Link>
             </li>
-            <li className="hover:bg-gray-400 text-lg p-2 rounded flex items-center transition-colors duration-200">
+            {/* <li className="hover:bg-gray-400 text-lg p-2 rounded flex items-center transition-colors duration-200">
               <Link href="/link-history" className="flex items-center text-slate-50">
                 <LinkIcon className="w-5 h-5 mr-2" />
                 Links
-              </Link>
-            </li>
+              </Link> */}
+            {/* </li> */}
             <li className="relative hover:bg-gray-400 text-lg p-2 rounded flex items-center transition-colors duration-200">
               <button className="flex items-center text-slate-50" onClick={toggleMobileSettings}>
                 <CogIcon className="w-5 h-5 mr-2" />
