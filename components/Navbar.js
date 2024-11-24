@@ -16,8 +16,38 @@ const Navbar = ({ onColorChange }) => {
     { name: 'Black', value: 'bg-black text-white' },
     { name: 'Half White', value: 'bg-gray-200' },
     { name: 'Gray', value: 'bg-gray-400' },
+    { name: 'Forest Green', value: 'bg-green-900 text-white' },
     { name: 'Navy Blue', value: 'bg-blue-900' },
+    { name: 'Mint Green', value: 'bg-emerald-200' },
     { name: 'White', value: 'bg-white' },
+    { name: 'Light Blue', value: 'bg-blue-100' },
+    { name: 'Light Pink', value: 'bg-pink-100' },
+    { name: 'Light Green', value: 'bg-green-100' },
+    { name: 'Light Yellow', value: 'bg-yellow-100' },
+    { name: 'Light Purple', value: 'bg-purple-100' },
+    { name: 'Light Orange', value: 'bg-orange-100' },
+    { name: 'Vibrant Red', value: 'bg-red-500 text-white' },
+  { name: 'Vibrant Blue', value: 'bg-blue-500 text-white' },
+  { name: 'Vibrant Green', value: 'bg-green-500 text-white' },
+  { name: 'Vibrant Yellow', value: 'bg-yellow-500 text-black' },
+  { name: 'Vibrant Purple', value: 'bg-purple-500 text-white' },
+  { name: 'Vibrant Orange', value: 'bg-orange-500 text-white' },
+  { name: 'Pastel Blue', value: 'bg-blue-200' },
+  { name: 'Pastel Pink', value: 'bg-pink-200' },
+  { name: 'Pastel Green', value: 'bg-green-200' },
+  { name: 'Pastel Yellow', value: 'bg-yellow-200' },
+  { name: 'Pastel Purple', value: 'bg-purple-200' },
+  { name: 'Pastel Orange', value: 'bg-orange-200' },
+  { name: 'Olive Green', value: 'bg-green-700 text-white' },
+  { name: 'Rust', value: 'bg-orange-700 text-white' },
+  { name: 'Brown', value: 'bg-amber-800 text-white' },
+  { name: 'Sand', value: 'bg-yellow-200 text-black' },
+  
+  { name: 'Teal', value: 'bg-teal-500 text-white' },
+  { name: 'Cyan', value: 'bg-cyan-500 text-white' },
+  { name: 'Coral', value: 'bg-orange-300' },
+  { name: 'Lavender', value: 'bg-violet-200' },
+  { name: 'Peach', value: 'bg-orange-200' }
   ];
 
   const toggleMenu = () => {
@@ -89,21 +119,22 @@ const Navbar = ({ onColorChange }) => {
               Colors
             </button>
             {isSettingsOpen && (
-              <ul
-                ref={settingsRef}
-                className="absolute right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg w-48 z-10"
-              >
-                {colors.map((color) => (
-                  <li
-                    key={color.value}
-                    className={`p-2 hover:bg-gray-100 cursor-pointer ${color.value}`}
-                    onClick={() => handleColorChange(color.value)}
-                  >
-                    {color.name}
-                  </li>
-                ))}
-              </ul>
-            )}
+  <ul
+    ref={settingsRef}
+    className="absolute right-0 mt-2 bg-white border border-gray-300 rounded shadow-lg w-48 z-10 max-h-60 overflow-y-auto"
+  >
+    {colors.map((color) => (
+      <li
+        key={color.value}
+        className={`p-2 hover:bg-gray-100 cursor-pointer ${color.value}`}
+        onClick={() => handleColorChange(color.value)}
+      >
+        {color.name}
+      </li>
+    ))}
+  </ul>
+)}
+           
           </div>
         </nav>
 
@@ -144,21 +175,22 @@ const Navbar = ({ onColorChange }) => {
                 Colors
               </button>
               {isMobileSettingsOpen && (
-                <ul
-                  ref={mobileSettingsRef}
-                  className="absolute left-0 mt-2 bg-white border border-gray-300 rounded shadow-lg w-full z-10"
-                >
-                  {colors.map((color) => (
-                    <li
-                      key={color.value}
-                      className={`p-2 hover:bg-gray-100 cursor-pointer ${color.value}`}
-                      onClick={() => handleColorChange(color.value)}
-                    >
-                      {color.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
+  <ul
+    ref={mobileSettingsRef}
+    className="absolute left-0 mt-2 bg-white border border-gray-300 rounded shadow-lg w-full z-10 max-h-60 overflow-y-auto"
+  >
+    {colors.map((color) => (
+      <li
+        key={color.value}
+        className={`p-2 hover:bg-gray-100 cursor-pointer ${color.value}`}
+        onClick={() => handleColorChange(color.value)}
+      >
+        {color.name}
+      </li>
+    ))}
+  </ul>
+)}
+
             </li>
           </ul>
         </nav>

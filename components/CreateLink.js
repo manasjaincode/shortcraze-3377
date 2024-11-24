@@ -3,6 +3,7 @@ import QRCode from 'qrcode.react';
 
 const CreateLink = () => {
   const [originalUrl, setOriginalUrl] = useState('');
+  const [customKeyword, setCustomKeyword] = useState('');
   const [shortenedUrl, setShortenedUrl] = useState('');
   const [fullUrl, setFullUrl] = useState('');
   const [error, setError] = useState(null);
@@ -21,7 +22,7 @@ const CreateLink = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ originalUrl }),
+        body: JSON.stringify({ originalUrl, customKeyword }),
       });
       const data = await response.json();
       if (response.ok) {
@@ -39,27 +40,26 @@ const CreateLink = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(fullUrl)
       .then(() => alert('URL copied to clipboard'))
-      .catch(err => alert('Failed to copy URL'));
+      .catch(() => alert('Failed to copy URL'));
   };
 
-  const handleRedirect = () => {
-    window.open(fullUrl, '_blank');
+  const handleDownloadQR = () => {
+    if (qrCodeRef.current) {
+      const qrCodeCanvas = qrCodeRef.current.querySelector('canvas');
+      const qrCodeUrl = qrCodeCanvas.toDataURL('image/png');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = qrCodeUrl;
+      downloadLink.download = `${shortenedUrl}_QRCode.png`;
+      downloadLink.click();
+    }
   };
 
   const handleClearAll = () => {
     setOriginalUrl('');
+    setCustomKeyword('');
     setShortenedUrl('');
     setFullUrl('');
     setError(null);
-  };
-
-  const handleDownloadQR = () => {
-    const qrCodeCanvas = qrCodeRef.current.querySelector('canvas');
-    const qrCodeUrl = qrCodeCanvas.toDataURL('image/png');
-    const downloadLink = document.createElement('a');
-    downloadLink.href = qrCodeUrl;
-    downloadLink.download = `${shortenedUrl}_QRCode.png`;
-    downloadLink.click();
   };
 
   return (
@@ -71,6 +71,13 @@ const CreateLink = () => {
         className="w-full p-2 border border-zinc-300 rounded mt-2"
         value={originalUrl}
         onChange={(e) => setOriginalUrl(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Enter custom keyword (optional)"
+        className="w-full p-2 border border-zinc-300 rounded mt-2"
+        value={customKeyword}
+        onChange={(e) => setCustomKeyword(e.target.value)}
       />
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {fullUrl && (
@@ -90,12 +97,6 @@ const CreateLink = () => {
               Copy
             </button>
           </div>
-          <button
-            onClick={handleRedirect}
-            className="mt-2 bg-green-400 text-white p-2 rounded"
-          >
-            Go to Shortened URL
-          </button>
           <div className="mt-4">
             <p className="text-green-600">QR Code:</p>
             <div ref={qrCodeRef}>
@@ -125,9 +126,8 @@ const CreateLink = () => {
         >
           Clear All
         </button>
-      )} 
+      )}
     </div>
-    
   );
 };
 
