@@ -11,7 +11,7 @@ const Footer = () => {
         </p>
         <div className="flex space-x-6">
           <a
-            href="https://www.instagram.com/manas.tsx/"
+            href="https://www.instagram.com/manassjaiingi/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-50 hover:text-gray-400"
