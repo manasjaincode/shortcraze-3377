@@ -2,55 +2,62 @@ import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 
 const PerformanceChart = ({ selectedRange }) => {
-  const chartRef = useRef(null);
+  const chartRef = useRef(null); // Reference for the chart instance
+  const canvasRef = useRef(null); // Reference for the canvas element
   const [chartData, setChartData] = useState({ labels: [], values: [] });
   const [loading, setLoading] = useState(true); // Loading state
 
-  // Fetch data for the chart
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true); // Set loading to true when fetching data
-        const response = await fetch('/api/links/stats');
+        setLoading(true);
+        const response = await fetch('/api/links/stats'); // Fetching stats data
         const data = await response.json();
 
+        // Filter out the 'week' section
+        const filteredData = Object.entries(data).filter(([key]) => key.toLowerCase() !== 'week');
+
         const newChartData = {
-          labels: Object.keys(data),
-          values: Object.values(data),
+          labels: filteredData.map(([key]) => key), // Use only the filtered keys
+          values: filteredData.map(([, value]) => value), // Use only the filtered values
         };
 
         setChartData(newChartData);
       } catch (error) {
         console.error('Error fetching chart data:', error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [selectedRange]);
 
-  // Create the chart when chartData changes
   useEffect(() => {
-    if (!chartData.values.length) return;
+    if (!chartData.values.length || !canvasRef.current) return;
 
-    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const ctx = canvasRef.current.getContext('2d');
 
-    // Destroy the previous chart if it exists
+    // Destroy previous chart instance
     if (chartRef.current) {
       chartRef.current.destroy();
     }
 
-    // Create the new chart
+    // Create new line chart
     chartRef.current = new Chart(ctx, {
-      type: 'bar',
+      type: 'line', // Change the chart type to 'line'
       data: {
         labels: chartData.labels,
         datasets: [
           {
-            label: 'Total Links Created by Users',
+            label: 'Links Created Over Time',
             data: chartData.values,
-            backgroundColor: 'pink',
+            borderColor: 'pink', // Line color
+            backgroundColor: 'rgba(255, 192, 203, 0.2)', // Light fill under the line
+            pointBackgroundColor: 'pink', // Point color
+            borderWidth: 2, // Line thickness
+            fill: true, // Fills the area under the line
+            tension: 0.5, // Smooth curve
           },
         ],
       },
@@ -58,13 +65,53 @@ const PerformanceChart = ({ selectedRange }) => {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
+          x: {
+            grid: {
+              display: false, // Removes grid lines for x-axis
+            },
+            title: {
+              display: true,
+              text: 'Time Periods', // X-axis label
+              font: {
+                size: 14,
+                weight: 'bold',
+                color: 'pink', // X-axis label color
+              },
+            },
+            ticks: {
+              color: 'white', // X-axis tick labels color
+            },
+          },
           y: {
             beginAtZero: true,
-            suggestedMax: Math.max(...chartData.values) * 1.2,
+            grid: {
+              color: '#e0e0e0', // Light grey grid lines for y-axis
+            },
+            title: {
+              display: true,
+              text: 'Count of Links Created', // Y-axis label
+              font: {
+                size: 14,
+                weight: 'bold',
+                color: 'pink', // Y-axis label color
+              },
+            },
             ticks: {
-              stepSize: 1, // Ensure only whole numbers are shown
-              callback: function (value) {
-                return Number.isInteger(value) ? value : ''; // Display only whole numbers
+              color: 'white', // Y-axis tick labels color
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true, // Display legend for line chart
+            labels: {
+              color: 'white', // Legend text color
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                return `Count: ${tooltipItem.raw}`; // Tooltip label
               },
             },
           },
@@ -84,10 +131,10 @@ const PerformanceChart = ({ selectedRange }) => {
     <div className="w-full h-full">
       {loading ? (
         <div className="flex justify-center items-center h-full">
-          <div className="loader">Loading Chart...</div> {/* Simple loader text */}
+          <div>Loading Chart...</div> {/* Simple loader */}
         </div>
       ) : (
-        <canvas id="performanceChart"></canvas>
+        <canvas ref={canvasRef} id="performanceChart"></canvas>
       )}
     </div>
   );

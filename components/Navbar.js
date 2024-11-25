@@ -97,7 +97,10 @@ const Navbar = ({ onColorChange }) => {
     <header className="fixed top-0 left-0 right-0 bg-black border-b border-black z-50">
       <div className="container mx-auto p-6 flex justify-between items-center">
         <div className="flex items-center">
-          <h1 className="text-2xl text-slate-50 font-bold mr-2 font-sans">SHORT CRAZE</h1>
+        <h1 className="text-2xl text-slate-50 font-bold mr-2 tracking-wide" style={{ fontFamily: 'Fredoka One, cursive' }}>
+  ShortCraze- By ManasJain 🧑🏻‍💻
+</h1>
+
         </div>
 
         {/* Regular Navigation Links for Large Screens */}

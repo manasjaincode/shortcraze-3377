@@ -84,12 +84,13 @@ const CreateLink = () => {
         <div className="mt-4">
           <p className="text-green-400 font-bold">Shortened URL:</p>
           <div className="flex items-center mt-2">
-            <input
-              type="text"
-              readOnly
-              value={fullUrl}
-              className="w-full p-2 border border-zinc-300 rounded"
-            />
+          <input
+  type="text"
+  readOnly
+  value={fullUrl}
+  className="w-full p-3 border border-zinc-300 rounded text-sm lg:text-base overflow-auto"
+/>
+
             <button
               onClick={handleCopy}
               className="ml-2 bg-blue-500 text-white p-2 rounded"

@@ -6,9 +6,10 @@ const Footer = () => {
   return (
     <footer className="bg-black border-t border-slate-700 py-6">
       <div className="container mx-auto flex flex-col items-center text-center">
-        <p className="text-slate-50 text-lg font-semibold mb-4">
-          Developed by - <span className="font-bold">MANAS JAIN</span>
-        </p>
+      <h1 className="text-2xl text-slate-50 font-bold mr-2 tracking-wide" style={{ fontFamily: 'Fredoka One, cursive' }}>
+  Connect with ME 😀
+</h1>
+
         <div className="flex space-x-6">
           <a
             href="https://www.instagram.com/manassjaiin/"
