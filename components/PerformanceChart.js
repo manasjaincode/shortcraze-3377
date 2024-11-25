@@ -130,9 +130,9 @@ const PerformanceChart = ({ selectedRange }) => {
   return (
     <div className="w-full h-full">
       {loading ? (
-        <div className="flex justify-center items-center h-full">
-          <div>Loading Chart...</div> {/* Simple loader */}
-        </div>
+           <div className="flex justify-center items-center h-full">
+           <div className="text-white text-lg font-medium">Loading Chart...</div> {/* Loader with white text */}
+         </div>
       ) : (
         <canvas ref={canvasRef} id="performanceChart"></canvas>
       )}
