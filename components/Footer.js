@@ -6,10 +6,9 @@ const Footer = () => {
   return (
     <footer className="bg-black border-t border-slate-700 py-6">
       <div className="container mx-auto flex flex-col items-center text-center">
-      <h1 className="text-2xl text-slate-50 font-bold mr-2 tracking-wide" style={{ fontFamily: ' cursive' }}>
-  Connect with ME 😀
-</h1>
-
+        <p className="text-slate-50 text-lg font-semibold mb-4">
+          Connect with <span className="font-bold">Me 🧑🏻‍💻</span>
+        </p>
         <div className="flex space-x-6">
           <a
             href="https://www.instagram.com/manassjaiin/"
