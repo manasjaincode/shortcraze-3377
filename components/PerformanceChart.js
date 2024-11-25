@@ -52,8 +52,8 @@ const PerformanceChart = ({ selectedRange }) => {
           {
             label: 'Links Created Over Time',
             data: chartData.values,
-            borderColor: 'pink', // Line color
-            backgroundColor: 'rgba(255, 192, 203, 0.2)', // Light fill under the line
+            borderColor: 'green', // Line color
+            backgroundColor: 'rgba(144, 238, 144, 0.2)', // Light fill under the line
             pointBackgroundColor: 'pink', // Point color
             borderWidth: 2, // Line thickness
             fill: true, // Fills the area under the line
