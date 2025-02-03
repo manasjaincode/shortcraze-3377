@@ -2,24 +2,35 @@ import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 
 const PerformanceChart = ({ selectedRange }) => {
-  const chartRef = useRef(null); // Reference for the chart instance
-  const canvasRef = useRef(null); // Reference for the canvas element
+  const chartRef = useRef(null);
+  const canvasRef = useRef(null);
   const [chartData, setChartData] = useState({ labels: [], values: [] });
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/links/stats'); // Fetching stats data
+        const response = await fetch('/api/links/stats');
         const data = await response.json();
 
-        // Filter out the 'week' section
-        const filteredData = Object.entries(data).filter(([key]) => key.toLowerCase() !== 'week');
+        console.log("Fetched Data:", data); // Debugging API response
+
+        // Normalize the year data if it's less than twice the 6-months value
+        const normalizedData = { ...data };
+        if (normalizedData.year && normalizedData.sixMonths) {
+          const estimatedYearly = normalizedData.sixMonths * 2;
+          if (normalizedData.year < estimatedYearly) {
+            normalizedData.year = Math.round(estimatedYearly * (12 / Object.keys(data).length));
+          }
+        }
+
+        // Filter out unnecessary data
+        const filteredData = Object.entries(normalizedData).filter(([key]) => key.toLowerCase() !== 'week');
 
         const newChartData = {
-          labels: filteredData.map(([key]) => key), // Use only the filtered keys
-          values: filteredData.map(([, value]) => value), // Use only the filtered values
+          labels: filteredData.map(([key]) => key),
+          values: filteredData.map(([, value]) => value),
         };
 
         setChartData(newChartData);
@@ -38,26 +49,23 @@ const PerformanceChart = ({ selectedRange }) => {
 
     const ctx = canvasRef.current.getContext('2d');
 
-    // Destroy previous chart instance
     if (chartRef.current) {
       chartRef.current.destroy();
     }
 
-    // Create new line chart
+    // Creating a bar chart
     chartRef.current = new Chart(ctx, {
-      type: 'line', // Change the chart type to 'line'
+      type: 'bar',
       data: {
         labels: chartData.labels,
         datasets: [
           {
             label: 'Links Created Over Time',
             data: chartData.values,
-            borderColor: 'green', // Line color
-            backgroundColor: 'rgba(144, 238, 144, 0.2)', // Light fill under the line
-            pointBackgroundColor: 'pink', // Point color
-            borderWidth: 2, // Line thickness
-            fill: true, // Fills the area under the line
-            tension: 0.5, // Smooth curve
+            backgroundColor: 'rgba(144, 238, 144, 0.7)', // Light green fill
+            borderColor: 'green', // Dark green border
+            borderWidth: 2,
+            borderRadius: 5, // Rounded bar edges
           },
         ],
       },
@@ -66,60 +74,41 @@ const PerformanceChart = ({ selectedRange }) => {
         maintainAspectRatio: false,
         scales: {
           x: {
-            grid: {
-              display: false, // Removes grid lines for x-axis
-            },
+            grid: { display: false },
             title: {
               display: true,
-              text: 'Time Periods', // X-axis label
-              font: {
-                size: 14,
-                weight: 'bold',
-                color: 'pink', // X-axis label color
-              },
+              text: 'Time Periods',
+              font: { size: 14, weight: 'bold' },
+              color: 'pink',
             },
-            ticks: {
-              color: 'white', // X-axis tick labels color
-            },
+            ticks: { color: 'white' },
           },
           y: {
             beginAtZero: true,
-            grid: {
-              color: '#e0e0e0', // Light grey grid lines for y-axis
-            },
+            grid: { color: '#e0e0e0' },
             title: {
               display: true,
-              text: 'Count of Links Created', // Y-axis label
-              font: {
-                size: 14,
-                weight: 'bold',
-                color: 'pink', // Y-axis label color
-              },
+              text: 'Count of Links Created',
+              font: { size: 14, weight: 'bold' },
+              color: 'pink',
             },
-            ticks: {
-              color: 'white', // Y-axis tick labels color
-            },
+            ticks: { color: 'white' },
           },
         },
         plugins: {
           legend: {
-            display: true, // Display legend for line chart
-            labels: {
-              color: 'white', // Legend text color
-            },
+            display: true,
+            labels: { color: 'white' },
           },
           tooltip: {
             callbacks: {
-              label: function (tooltipItem) {
-                return `Count: ${tooltipItem.raw}`; // Tooltip label
-              },
+              label: (tooltipItem) => `Count: ${tooltipItem.raw}`,
             },
           },
         },
       },
     });
 
-    // Cleanup the chart instance on unmount or data change
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
@@ -130,9 +119,9 @@ const PerformanceChart = ({ selectedRange }) => {
   return (
     <div className="w-full h-full">
       {loading ? (
-           <div className="flex justify-center items-center h-full">
-           <div className="text-white text-lg font-medium">Loading Chart...</div> {/* Loader with white text */}
-         </div>
+        <div className="flex justify-center items-center h-full">
+          <div className="text-white text-lg font-medium">Loading Chart...</div>
+        </div>
       ) : (
         <canvas ref={canvasRef} id="performanceChart"></canvas>
       )}
