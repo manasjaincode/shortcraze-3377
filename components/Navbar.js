@@ -46,7 +46,7 @@ const Navbar = ({ onColorChange }) => {
     <header className="fixed top-0 left-0 right-0 bg-black z-50 shadow-md">
       <div className="container mx-auto p-6 flex justify-between items-center">
         {/* Brand */}
-        <div className="text-white font-bold text-lg">ShortCraze by Manas Jain 🔗</div>
+        <div className="text-white font-bold text-lg">ShortCraze🔗</div>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex space-x-4">

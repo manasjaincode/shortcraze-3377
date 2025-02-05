@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="bg-black border-t border-slate-700 py-6">
       <div className="container mx-auto flex flex-col items-center text-center">
         <p className="text-slate-50 text-lg font-semibold mb-4">
-          Connect with <span className="font-bold">Me 🧑🏻‍💻</span>
+          Connect with <span className="font-bold">Us 🧑🏻‍💻</span>
         </p>
         <div className="flex space-x-6">
           <a

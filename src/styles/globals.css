@@ -3,3 +3,46 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
+
+
+:root {
+  --primary: #4f46e5;
+  --secondary: #818cf8;
+  --primary-dark: #6366f1;
+  --secondary-dark: #a5b4fc;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary), var(--secondary)) !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+  
+  
+}
+
+.dark .gradient-text-dark {
+  background: linear-gradient(45deg, var(--primary-dark), var(--secondary-dark)) !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.url-input {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+}
+
+.dark .url-input {
+  background: rgba(17, 24, 39, 0.9) !important;
+  backdrop-filter: blur(10px);
+}

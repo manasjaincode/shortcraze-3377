@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root variables for consistent theme colors */
+:root {
+  --primary: #4f46e5;
+  --secondary: #818cf8;
+  --primary-dark: #6366f1;
+  --secondary-dark: #a5b4fc;
+  --background-light: #f8fafc;
+  --background-dark: #1e293b;
+}
+
+/* Global body styles */
+body {
+  @apply text-gray-900 dark:text-white;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-light);
+}
+
+.dark body {
+  background-color: var(--background-dark);
+}
+
+/* Container styling for homepage */
+.home-container {
+  @apply flex flex-col items-center justify-center min-h-screen px-6 text-center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+/* Title styling */
+.home-title {
+  @apply text-4xl font-bold mb-4;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .home-title {
+  background: linear-gradient(45deg, var(--primary-dark), var(--secondary-dark));
+}
+
+/* Paragraph styling */
+.home-content {
+  @apply text-lg max-w-xl text-gray-200 dark:text-gray-300;
+}
+
+/* Input box styling */
+.url-input {
+  @apply bg-white dark:bg-gray-900 dark:text-white text-gray-800 px-4 py-2 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  backdrop-filter: blur(10px);
+}
+
+.dark .url-input {
+  background: rgba(17, 24, 39, 0.9);
+}
